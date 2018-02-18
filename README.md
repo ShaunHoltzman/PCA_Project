@@ -1,15 +1,17 @@
 Compiling
-——
+-----------
 
 make
 
 Running
-——
+-----------
 
 For help:
+
 mpiexec -n [any number] ./benchmarks —help
 
 For running benchmarks:
+
 mpiexec -n [num_cores] ./benchmarks [OpenMP/OpenMPI] [benchmark] [datatype] [size]
 
 OpenMP/OpenMPI:
