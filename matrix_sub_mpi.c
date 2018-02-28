@@ -1,6 +1,6 @@
 #include "benchmarks.h"
 
-double matrix_matrix_add_int8_mpi(size, threads)
+double matrix_matrix_sub_int8_mpi(size, threads)
 {
     int i;
     int rank, num_cores;
@@ -47,7 +47,7 @@ double matrix_matrix_add_int8_mpi(size, threads)
     
     for(i=0; i<(size2D/threads); i++)
     {
-        C[i]=A[i]+B[i];
+        C[i]=A[i]-B[i];
     }
     
     MPI_Gather(C, (size2D/threads), MPI_CHAR, C, (size2D/threads), MPI_CHAR, 0, MPI_COMM_WORLD);
@@ -65,7 +65,7 @@ double matrix_matrix_add_int8_mpi(size, threads)
     return runtime;
 }
 
-double matrix_matrix_add_int16_mpi(size, threads)
+double matrix_matrix_sub_int16_mpi(size, threads)
 {
     int i;
     int rank, num_cores;
@@ -112,7 +112,7 @@ double matrix_matrix_add_int16_mpi(size, threads)
     
     for(i=0; i<(size2D/threads); i++)
     {
-        C[i]=A[i]+B[i];
+        C[i]=A[i]-B[i];
     }
     
     MPI_Gather(C, (size2D/threads), MPI_SHORT, C, (size2D/threads), MPI_SHORT, 0, MPI_COMM_WORLD);
@@ -130,7 +130,7 @@ double matrix_matrix_add_int16_mpi(size, threads)
     return runtime;
 }
 
-double matrix_matrix_add_int32_mpi(size, threads)
+double matrix_matrix_sub_int32_mpi(size, threads)
 {
 
     int i;
@@ -178,7 +178,7 @@ double matrix_matrix_add_int32_mpi(size, threads)
     
     for(i=0; i<(size2D/threads); i++)
     {
-        C[i]=A[i]+B[i];
+        C[i]=A[i]-B[i];
     }
     
     MPI_Gather(C, (size2D/threads), MPI_INT, C, (size2D/threads), MPI_INT, 0, MPI_COMM_WORLD);
@@ -198,7 +198,7 @@ double matrix_matrix_add_int32_mpi(size, threads)
 
 }
 
-double matrix_matrix_add_spfp_mpi(size, threads)
+double matrix_matrix_sub_spfp_mpi(size, threads)
 {
     int i;
     int rank, num_cores;
@@ -245,7 +245,7 @@ double matrix_matrix_add_spfp_mpi(size, threads)
     
     for(i=0; i<(size2D/threads); i++)
     {
-        C[i]=A[i]+B[i];
+        C[i]=A[i]-B[i];
     }
     
     MPI_Gather(C, (size2D/threads), MPI_FLOAT, C, (size2D/threads), MPI_FLOAT, 0, MPI_COMM_WORLD);
@@ -264,7 +264,7 @@ double matrix_matrix_add_spfp_mpi(size, threads)
 
 }
 
-double matrix_matrix_add_dpfp_mpi(size, threads)
+double matrix_matrix_sub_dpfp_mpi(size, threads)
 {
     int i;
     int rank, num_cores;
@@ -311,7 +311,7 @@ double matrix_matrix_add_dpfp_mpi(size, threads)
     
     for(i=0; i<(size2D/threads); i++)
     {
-        C[i]=A[i]+B[i];
+        C[i]=A[i]-B[i];
     }
     
     MPI_Gather(C, (size2D/threads), MPI_DOUBLE, C, (size2D/threads), MPI_DOUBLE, 0, MPI_COMM_WORLD);

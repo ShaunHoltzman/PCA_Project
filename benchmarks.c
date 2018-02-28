@@ -47,6 +47,22 @@ void main(int argc, char **argv)
     
     const char *data_types[5]={"int8","in16","int32","spfp","dpfp"};
     
+    char *parallel_type;
+    
+    if(num_cores==1)
+    {
+        parallel_type = "Serial";
+    }
+    else if(mp_or_mpi==1)
+    {
+        parallel_type = "OpenMP";
+    }
+    else
+    {
+        parallel_type = "OpenMPI";
+    }
+    
+    
     if(benchmark==1)
     {
         if( (num_cores==1 || mp_or_mpi==1) && rank==0)
@@ -67,6 +83,27 @@ void main(int argc, char **argv)
                     break;
                 case(5):
                     runtime=matrix_matrix_mult_dpfp(size, num_cores);
+                    break;
+            }
+        }
+        else if(mp_or_mpi==2)
+        {
+            switch(data_type)
+            {
+                case(1):
+                    runtime=matrix_matrix_mult_int8_mpi(size, num_cores);
+                    break;
+                case(2):
+                    runtime=matrix_matrix_mult_int16_mpi(size, num_cores);
+                    break;
+                case(3):
+                    runtime=matrix_matrix_mult_int32_mpi(size, num_cores);
+                    break;
+                case(4):
+                    runtime=matrix_matrix_mult_spfp_mpi(size, num_cores);
+                    break;
+                case(5):
+                    runtime=matrix_matrix_mult_dpfp_mpi(size, num_cores);
                     break;
             }
         }
@@ -140,11 +177,33 @@ void main(int argc, char **argv)
                     break;
             }
         }
+        else if(mp_or_mpi==2)
+        {
+            switch(data_type)
+            {
+                case(1):
+                    runtime=matrix_matrix_sub_int8_mpi(size, num_cores);
+                    break;
+                case(2):
+                    runtime=matrix_matrix_sub_int16_mpi(size, num_cores);
+                    break;
+                case(3):
+                    runtime=matrix_matrix_sub_int32_mpi(size, num_cores);
+                    break;
+                case(4):
+                    runtime=matrix_matrix_sub_spfp_mpi(size, num_cores);
+                    break;
+                case(5):
+                    runtime=matrix_matrix_sub_dpfp_mpi(size, num_cores);
+                    break;
+            }
+        }
     }
+    
     
     if(rank==0)
     {
-        printf("%s, %s, size=%d, threads=%d, runtime=%f\n\n", benchmarks[benchmark-1],data_types[data_type-1],size,num_cores,runtime);
+        printf("%s, %s, %s, size=%d, threads=%d, runtime=%f\n\n", benchmarks[benchmark-1], parallel_type,data_types[data_type-1],size,num_cores,runtime);
     }
     
     
