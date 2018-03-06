@@ -1,6 +1,6 @@
 #include "benchmarks.h"
 
-double matrix_matrix_sub_int8_mpi(size, threads)
+double matrix_matrix_sub_int8_mpi(int size, int threads)
 {
     int i;
     int rank, num_cores;
@@ -65,7 +65,7 @@ double matrix_matrix_sub_int8_mpi(size, threads)
     return runtime;
 }
 
-double matrix_matrix_sub_int16_mpi(size, threads)
+double matrix_matrix_sub_int16_mpi(int size, int threads)
 {
     int i;
     int rank, num_cores;
@@ -130,7 +130,7 @@ double matrix_matrix_sub_int16_mpi(size, threads)
     return runtime;
 }
 
-double matrix_matrix_sub_int32_mpi(size, threads)
+double matrix_matrix_sub_int32_mpi(int size, int threads)
 {
 
     int i;
@@ -198,7 +198,7 @@ double matrix_matrix_sub_int32_mpi(size, threads)
 
 }
 
-double matrix_matrix_sub_spfp_mpi(size, threads)
+double matrix_matrix_sub_spfp_mpi(int size, int threads)
 {
     int i;
     int rank, num_cores;
@@ -264,7 +264,7 @@ double matrix_matrix_sub_spfp_mpi(size, threads)
 
 }
 
-double matrix_matrix_sub_dpfp_mpi(size, threads)
+double matrix_matrix_sub_dpfp_mpi(int size, int threads)
 {
     int i;
     int rank, num_cores;

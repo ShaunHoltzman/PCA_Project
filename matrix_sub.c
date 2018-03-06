@@ -1,6 +1,6 @@
 #include "benchmarks.h"
 
-double matrix_matrix_sub_int8(size, threads)
+double matrix_matrix_sub_int8(int size, int threads)
 {
     int i;
     int size2D=size*size;
@@ -49,7 +49,7 @@ double matrix_matrix_sub_int8(size, threads)
     
 }
 
-double matrix_matrix_sub_int16(size, threads)
+double matrix_matrix_sub_int16(int size, int threads)
 {
     int i;
     int size2D=size*size;
@@ -97,7 +97,7 @@ double matrix_matrix_sub_int16(size, threads)
     return TIME_RUNTIME(start,end);
 }
 
-double matrix_matrix_sub_int32(size, threads)
+double matrix_matrix_sub_int32(int size, int threads)
 {
     int i;
     int size2D=size*size;
@@ -145,7 +145,7 @@ double matrix_matrix_sub_int32(size, threads)
     return TIME_RUNTIME(start,end);
 }
 
-double matrix_matrix_sub_spfp(size, threads)
+double matrix_matrix_sub_spfp(int size, int threads)
 {
     int i;
     int size2D=size*size;
@@ -193,7 +193,7 @@ double matrix_matrix_sub_spfp(size, threads)
     return TIME_RUNTIME(start,end);
 }
 
-double matrix_matrix_sub_dpfp(size, threads)
+double matrix_matrix_sub_dpfp(int size, int threads)
 {
     int i;
     int size2D=size*size;

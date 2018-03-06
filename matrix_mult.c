@@ -1,6 +1,6 @@
 #include "benchmarks.h"
 
-double matrix_matrix_mult_int8(size, threads)
+double matrix_matrix_mult_int8(int size, int threads)
 {
     int i,j,k;
     srand(SEED);
@@ -61,7 +61,7 @@ double matrix_matrix_mult_int8(size, threads)
     return TIME_RUNTIME(start,end);
 }
 
-double matrix_matrix_mult_int16(size, threads)
+double matrix_matrix_mult_int16(int size, int threads)
 {
     int i,j,k;
     srand(SEED);
@@ -122,7 +122,7 @@ double matrix_matrix_mult_int16(size, threads)
     return TIME_RUNTIME(start,end);
 }
 
-double matrix_matrix_mult_int32(size, threads)
+double matrix_matrix_mult_int32(int size, int threads)
 {
     int i,j,k;
     srand(SEED);
@@ -185,7 +185,7 @@ double matrix_matrix_mult_int32(size, threads)
         
 }
 
-double matrix_matrix_mult_spfp(size, threads)
+double matrix_matrix_mult_spfp(int size, int threads)
 {
     int i,j,k;
     srand(SEED);
@@ -246,7 +246,7 @@ double matrix_matrix_mult_spfp(size, threads)
     return TIME_RUNTIME(start,end);
 }
 
-double matrix_matrix_mult_dpfp(size, threads)
+double matrix_matrix_mult_dpfp(int size, int threads)
 {
     int i,j,k;
     srand(SEED);
