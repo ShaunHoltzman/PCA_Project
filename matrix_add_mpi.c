@@ -42,15 +42,30 @@ double matrix_matrix_add_int8_mpi(int size, int threads)
         TIME_GET(&start);
     }
     
-    MPI_Scatter(A, (size2D/threads), MPI_CHAR, A, (size2D/threads), MPI_CHAR, 0, MPI_COMM_WORLD);
-    MPI_Scatter(B, (size2D/threads), MPI_CHAR, B, (size2D/threads), MPI_CHAR, 0, MPI_COMM_WORLD);
+    if(rank==0)
+    {
+   	MPI_Scatter(A, (size2D/threads), MPI_CHAR, MPI_IN_PLACE, (size2D/threads), MPI_CHAR, 0, MPI_COMM_WORLD);
+    	MPI_Scatter(B, (size2D/threads), MPI_CHAR, MPI_IN_PLACE, (size2D/threads), MPI_CHAR, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Scatter(A, (size2D/threads), MPI_CHAR, A, (size2D/threads), MPI_CHAR, 0, MPI_COMM_WORLD);
+    	MPI_Scatter(B, (size2D/threads), MPI_CHAR, B, (size2D/threads), MPI_CHAR, 0, MPI_COMM_WORLD);
+    }
     
     for(i=0; i<(size2D/threads); i++)
     {
         C[i]=A[i]+B[i];
     }
     
-    MPI_Gather(C, (size2D/threads), MPI_CHAR, C, (size2D/threads), MPI_CHAR, 0, MPI_COMM_WORLD);
+    if(rank != 0)
+    {
+    	MPI_Gather(C, (size2D/threads), MPI_CHAR, NULL, (size2D/threads), MPI_CHAR, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Gather(MPI_IN_PLACE, (size2D/threads), MPI_CHAR, C, (size2D/threads), MPI_CHAR, 0, MPI_COMM_WORLD);
+    }
     
     if(rank==0)
     {
@@ -107,15 +122,30 @@ double matrix_matrix_add_int16_mpi(int size, int threads)
         TIME_GET(&start);
     }
     
-    MPI_Scatter(A, (size2D/threads), MPI_SHORT, A, (size2D/threads), MPI_SHORT, 0, MPI_COMM_WORLD);
-    MPI_Scatter(B, (size2D/threads), MPI_SHORT, B, (size2D/threads), MPI_SHORT, 0, MPI_COMM_WORLD);
+    if(rank==0)
+    {
+    	MPI_Scatter(A, (size2D/threads), MPI_SHORT, MPI_IN_PLACE, (size2D/threads), MPI_SHORT, 0, MPI_COMM_WORLD);
+    	MPI_Scatter(B, (size2D/threads), MPI_SHORT, MPI_IN_PLACE, (size2D/threads), MPI_SHORT, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Scatter(A, (size2D/threads), MPI_SHORT, A, (size2D/threads), MPI_SHORT, 0, MPI_COMM_WORLD);
+    	MPI_Scatter(B, (size2D/threads), MPI_SHORT, B, (size2D/threads), MPI_SHORT, 0, MPI_COMM_WORLD);
+    }
     
     for(i=0; i<(size2D/threads); i++)
     {
         C[i]=A[i]+B[i];
     }
     
-    MPI_Gather(C, (size2D/threads), MPI_SHORT, C, (size2D/threads), MPI_SHORT, 0, MPI_COMM_WORLD);
+    if(rank!=0)
+    {
+    	MPI_Gather(C, (size2D/threads), MPI_SHORT, NULL, (size2D/threads), MPI_SHORT, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Gather(MPI_IN_PLACE, (size2D/threads), MPI_SHORT, C, (size2D/threads), MPI_SHORT, 0, MPI_COMM_WORLD);
+    }
     
     if(rank==0)
     {
@@ -173,15 +203,30 @@ double matrix_matrix_add_int32_mpi(int size, int threads)
         TIME_GET(&start);
     }
     
-    MPI_Scatter(A, (size2D/threads), MPI_INT, A, (size2D/threads), MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Scatter(B, (size2D/threads), MPI_INT, B, (size2D/threads), MPI_INT, 0, MPI_COMM_WORLD);
+    if(rank==0)
+    {
+    	MPI_Scatter(A, (size2D/threads), MPI_INT, MPI_IN_PLACE, (size2D/threads), MPI_INT, 0, MPI_COMM_WORLD);
+    	MPI_Scatter(B, (size2D/threads), MPI_INT, MPI_IN_PLACE, (size2D/threads), MPI_INT, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Scatter(A, (size2D/threads), MPI_INT, A, (size2D/threads), MPI_INT, 0, MPI_COMM_WORLD);
+    	MPI_Scatter(B, (size2D/threads), MPI_INT, B, (size2D/threads), MPI_INT, 0, MPI_COMM_WORLD);
+    }
     
     for(i=0; i<(size2D/threads); i++)
     {
         C[i]=A[i]+B[i];
     }
     
-    MPI_Gather(C, (size2D/threads), MPI_INT, C, (size2D/threads), MPI_INT, 0, MPI_COMM_WORLD);
+    if(rank!=0)
+    {
+    	MPI_Gather(C, (size2D/threads), MPI_INT, NULL, (size2D/threads), MPI_INT, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Gather(MPI_IN_PLACE, (size2D/threads), MPI_INT, C, (size2D/threads), MPI_INT, 0, MPI_COMM_WORLD);
+    }
     
     if(rank==0)
     {
@@ -240,15 +285,30 @@ double matrix_matrix_add_spfp_mpi(int size, int threads)
         TIME_GET(&start);
     }
     
-    MPI_Scatter(A, (size2D/threads), MPI_FLOAT, A, (size2D/threads), MPI_FLOAT, 0, MPI_COMM_WORLD);
-    MPI_Scatter(B, (size2D/threads), MPI_FLOAT, B, (size2D/threads), MPI_FLOAT, 0, MPI_COMM_WORLD);
+    if(rank==0)
+    {
+    	MPI_Scatter(A, (size2D/threads), MPI_FLOAT, MPI_IN_PLACE, (size2D/threads), MPI_FLOAT, 0, MPI_COMM_WORLD);
+    	MPI_Scatter(B, (size2D/threads), MPI_FLOAT, MPI_IN_PLACE, (size2D/threads), MPI_FLOAT, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Scatter(A, (size2D/threads), MPI_FLOAT, A, (size2D/threads), MPI_FLOAT, 0, MPI_COMM_WORLD);
+    	MPI_Scatter(B, (size2D/threads), MPI_FLOAT, B, (size2D/threads), MPI_FLOAT, 0, MPI_COMM_WORLD);
+    }
     
     for(i=0; i<(size2D/threads); i++)
     {
         C[i]=A[i]+B[i];
     }
     
-    MPI_Gather(C, (size2D/threads), MPI_FLOAT, C, (size2D/threads), MPI_FLOAT, 0, MPI_COMM_WORLD);
+    if(rank!=0)
+    {
+    	MPI_Gather(C, (size2D/threads), MPI_FLOAT, NULL, (size2D/threads), MPI_FLOAT, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Gather(MPI_IN_PLACE, (size2D/threads), MPI_FLOAT, C, (size2D/threads), MPI_FLOAT, 0, MPI_COMM_WORLD);
+    }
     
     if(rank==0)
     {
@@ -306,15 +366,31 @@ double matrix_matrix_add_dpfp_mpi(int size, int threads)
         TIME_GET(&start);
     }
     
-    MPI_Scatter(A, (size2D/threads), MPI_DOUBLE, A, (size2D/threads), MPI_DOUBLE, 0, MPI_COMM_WORLD);
-    MPI_Scatter(B, (size2D/threads), MPI_DOUBLE, B, (size2D/threads), MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    
+    if(rank==0)
+    {
+    	MPI_Scatter(A, (size2D/threads), MPI_DOUBLE, MPI_IN_PLACE, (size2D/threads), MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    	MPI_Scatter(B, (size2D/threads), MPI_DOUBLE, MPI_IN_PLACE, (size2D/threads), MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Scatter(A, (size2D/threads), MPI_DOUBLE, A, (size2D/threads), MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    	MPI_Scatter(B, (size2D/threads), MPI_DOUBLE, B, (size2D/threads), MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    }
     
     for(i=0; i<(size2D/threads); i++)
     {
         C[i]=A[i]+B[i];
     }
     
-    MPI_Gather(C, (size2D/threads), MPI_DOUBLE, C, (size2D/threads), MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    if(rank!=0)
+    {
+    	MPI_Gather(C, (size2D/threads), MPI_DOUBLE, NULL, (size2D/threads), MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Gather(MPI_IN_PLACE, (size2D/threads), MPI_DOUBLE, C, (size2D/threads), MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    }
     
     if(rank==0)
     {

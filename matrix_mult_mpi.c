@@ -41,7 +41,17 @@ double matrix_matrix_mult_int8_mpi(int size, int threads)
         TIME_GET(&start);
     }
     
-    MPI_Scatter(A, (size/threads)*size, MPI_CHAR, A, (size/threads)*size, MPI_CHAR, 0, MPI_COMM_WORLD);
+    
+    if(rank==0)
+    {
+    	MPI_Scatter(A, (size/threads)*size, MPI_CHAR, MPI_IN_PLACE, (size/threads)*size, MPI_CHAR, 0, MPI_COMM_WORLD);
+    
+    }
+    else
+    {
+    	MPI_Scatter(A, (size/threads)*size, MPI_CHAR, A, (size/threads)*size, MPI_CHAR, 0, MPI_COMM_WORLD);
+    }
+    
     MPI_Bcast(B, size*size, MPI_CHAR, 0, MPI_COMM_WORLD);
     
     for(i=0; i<size/threads; i++)
@@ -55,7 +65,14 @@ double matrix_matrix_mult_int8_mpi(int size, int threads)
         }
     }
     
-    MPI_Gather(C, (size/threads)*size, MPI_SHORT, C, (size/threads)*size, MPI_SHORT, 0, MPI_COMM_WORLD);
+    if(rank!=0)
+    {
+    	MPI_Gather(C, (size/threads)*size, MPI_SHORT, NULL, (size/threads)*size, MPI_SHORT, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Gather(MPI_IN_PLACE, (size/threads)*size, MPI_SHORT, C, (size/threads)*size, MPI_SHORT, 0, MPI_COMM_WORLD);
+    }
     
     if(rank==0)
     {
@@ -112,7 +129,16 @@ double matrix_matrix_mult_int16_mpi(int size, int threads)
         TIME_GET(&start);
     }
     
-    MPI_Scatter(A, (size/threads)*size, MPI_SHORT, A, (size/threads)*size, MPI_SHORT, 0, MPI_COMM_WORLD);
+    if(rank==0)
+    {
+    	MPI_Scatter(A, (size/threads)*size, MPI_SHORT, MPI_IN_PLACE, (size/threads)*size, MPI_SHORT, 0, MPI_COMM_WORLD);
+    
+    }
+    else
+    {
+    	MPI_Scatter(A, (size/threads)*size, MPI_SHORT, A, (size/threads)*size, MPI_SHORT, 0, MPI_COMM_WORLD);
+    }
+    
     MPI_Bcast(B, size*size, MPI_SHORT, 0, MPI_COMM_WORLD);
     
     for(i=0; i<size/threads; i++)
@@ -126,7 +152,15 @@ double matrix_matrix_mult_int16_mpi(int size, int threads)
         }
     }
     
-    MPI_Gather(C, (size/threads)*size, MPI_INT, C, (size/threads)*size, MPI_INT, 0, MPI_COMM_WORLD);
+    
+    if(rank!=0)
+    {
+    	MPI_Gather(C, (size/threads)*size, MPI_INT, NULL, (size/threads)*size, MPI_INT, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Gather(MPI_IN_PLACE, (size/threads)*size, MPI_INT, C, (size/threads)*size, MPI_INT, 0, MPI_COMM_WORLD);
+    }
     
     if(rank==0)
     {
@@ -175,7 +209,7 @@ double matrix_matrix_mult_int32_mpi(int size, int threads)
     {
         A=malloc(sizeof(int32_t)*(size/threads)*size);
         B=malloc(sizeof(int32_t)*(size*size));
-        C=malloc(sizeof(int64_t)*(size*size));
+        C=malloc(sizeof(int64_t)*(size/threads)*size);
     }
     
     if(rank==0)
@@ -183,7 +217,16 @@ double matrix_matrix_mult_int32_mpi(int size, int threads)
         TIME_GET(&start);
     }
     
-    MPI_Scatter(A, (size/threads)*size, MPI_INT, A, (size/threads)*size, MPI_INT, 0, MPI_COMM_WORLD);
+    if(rank==0)
+    {
+    	MPI_Scatter(A, (size/threads)*size, MPI_INT, MPI_IN_PLACE, (size/threads)*size, MPI_INT, 0, MPI_COMM_WORLD);
+    
+    }
+    else
+    {
+    	MPI_Scatter(A, (size/threads)*size, MPI_INT, A, (size/threads)*size, MPI_INT, 0, MPI_COMM_WORLD);
+    }
+    
     MPI_Bcast(B, size*size, MPI_INT, 0, MPI_COMM_WORLD);
     
     for(i=0; i<size/threads; i++)
@@ -197,7 +240,14 @@ double matrix_matrix_mult_int32_mpi(int size, int threads)
         }
     }
     
-    MPI_Gather(C, (size/threads)*size, MPI_LONG, C, (size/threads)*size, MPI_LONG, 0, MPI_COMM_WORLD);
+    if(rank!=0)
+    {
+    	MPI_Gather(C, (size/threads)*size, MPI_LONG, NULL, (size/threads)*size, MPI_LONG, 0, MPI_COMM_WORLD);
+    }
+    else
+    {
+    	MPI_Gather(MPI_IN_PLACE, (size/threads)*size, MPI_LONG, C, (size/threads)*size, MPI_LONG, 0, MPI_COMM_WORLD);
+    }
     
     if(rank==0)
     {
