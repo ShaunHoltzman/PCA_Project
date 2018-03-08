@@ -30,6 +30,14 @@ Benchmarks:
 
 3: matrix_matrix_sub
 
+4: matrix_matrix_trans
+
+5: keplers_equation
+
+6: clohessy_wiltshire_equations
+
+7: sobel_filter
+
 Datatypes:
 
 1: int8

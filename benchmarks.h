@@ -64,3 +64,59 @@ double matrix_matrix_sub_int16_mpi(int size, int threads);
 double matrix_matrix_sub_int32_mpi(int size, int threads);
 double matrix_matrix_sub_spfp_mpi(int size, int threads);
 double matrix_matrix_sub_dpfp_mpi(int size, int threads);
+
+/* Matrix-Matrix Transpose */
+
+double matrix_matrix_trans_int8(int size, int threads);
+double matrix_matrix_trans_int16(int size, int threads);
+double matrix_matrix_trans_int32(int size, int threads);
+double matrix_matrix_trans_spfp(int size, int threads);
+double matrix_matrix_trans_dpfp(int size, int threads);
+
+double matrix_matrix_trans_int8_mpi(int size, int threads);
+double matrix_matrix_trans_int16_mpi(int size, int threads);
+double matrix_matrix_trans_int32_mpi(int size, int threads);
+double matrix_matrix_trans_spfp_mpi(int size, int threads);
+double matrix_matrix_trans_dpfp_mpi(int size, int threads);
+
+/* Keplers Equation */
+
+double keplers_spfp(int size, int threads);
+double keplers_dpfp(int size, int threads);
+
+double keplers_spfp_mpi(int size, int threads);
+double keplers_dpfp_mpi(int size, int threads);
+
+/* Clohessy-Wiltshire Equations */
+
+double cw_spfp(int size, int threads);
+double cw_dpfp(int size, int threads);
+
+double cw_spfp_mpi(int size, int threads);
+double cw_dpfp_mpi(int size, int threads);
+
+/* 3x3 Sobel Filter */
+
+double sobel_int8(int size, int threads);
+double sobel_int16(int size, int threads);
+double sobel_int32(int size, int threads);
+double sobel_spfp(int size, int threads);
+double sobel_dpfp(int size, int threads);
+
+double sobel_int8_mpi(int size, int threads);
+double sobel_int16_mpi(int size, int threads);
+double sobel_int32_mpi(int size, int threads);
+double sobel_spfp_mpi(int size, int threads);
+double sobel_dpfp_mpi(int size, int threads);
+
+
+
+
+
+
+
+
+
+
+
+

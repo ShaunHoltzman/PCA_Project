@@ -21,7 +21,11 @@ int main(int argc, char **argv)
         printf("Benchmarks:\n");
         printf("1: matrix_matrix_mult\n");
         printf("2: matrix_matrix_add\n");
-        printf("3: matrix_matrix_sub\n\n");
+        printf("3: matrix_matrix_sub\n");
+        printf("4: matrix_matrix_trans\n");
+        printf("5: keplers_equation\n");
+        printf("6: clohessy_wiltshire_equations\n");
+        printf("7: sobel_filter\n\n");
         printf("Datatypes:\n");
         printf("1: int8\n");
         printf("2: int16\n");
@@ -40,12 +44,16 @@ int main(int argc, char **argv)
     
     double runtime;
     
-    const char *benchmarks[3]={"matrix_matrix_mult",
+    const char *benchmarks[7]={"matrix_matrix_mult",
                                "matrix_matrix_add",
-                               "matrix_matrix_sub"
+                               "matrix_matrix_sub",
+                               "matrix_matrix_trans",
+                               "keplers_equation",
+                               "clohessy_wiltshire_equations",
+                               "sobel_filter"
                                };
     
-    const char *data_types[5]={"int8","in16","int32","spfp","dpfp"};
+    const char *data_types[5]={"int8","int16","int32","spfp","dpfp"};
     
     char *parallel_type;
     
@@ -199,6 +207,151 @@ int main(int argc, char **argv)
             }
         }
     }
+    else if(benchmark==4)
+    {
+        if( (num_cores==1 || mp_or_mpi==1) && rank==0)
+        {
+            switch(data_type)
+            {
+                case(1):
+                    runtime=matrix_matrix_trans_int8(size, num_cores);
+                    break;
+                case(2):
+                    runtime=matrix_matrix_trans_int16(size, num_cores);
+                    break;
+                case(3):
+                    runtime=matrix_matrix_trans_int32(size, num_cores);
+                    break;
+                case(4):
+                    runtime=matrix_matrix_trans_spfp(size, num_cores);
+                    break;
+                case(5):
+                    runtime=matrix_matrix_trans_dpfp(size, num_cores);
+                    break;
+            }
+        }
+        else if(mp_or_mpi==2)
+        {
+            switch(data_type)
+            {
+                case(1):
+                    runtime=matrix_matrix_trans_int8_mpi(size, num_cores);
+                    break;
+                case(2):
+                    runtime=matrix_matrix_trans_int16_mpi(size, num_cores);
+                    break;
+                case(3):
+                    runtime=matrix_matrix_trans_int32_mpi(size, num_cores);
+                    break;
+                case(4):
+                    runtime=matrix_matrix_trans_spfp_mpi(size, num_cores);
+                    break;
+                case(5):
+                    runtime=matrix_matrix_trans_dpfp_mpi(size, num_cores);
+                    break;
+            }
+        }
+    }
+    else if(benchmark==5)
+    {
+        if( (num_cores==1 || mp_or_mpi==1) && rank==0)
+        {
+            switch(data_type)
+            {
+                case(4):
+                    runtime=keplers_spfp(size, num_cores);
+                    break;
+                case(5):
+                    runtime=keplers_dpfp(size, num_cores);
+                    break;
+            }
+        }
+        else if(mp_or_mpi==2)
+        {
+            switch(data_type)
+            {
+                case(4):
+                    runtime=keplers_spfp_mpi(size, num_cores);
+                    break;
+                case(5):
+                    runtime=keplers_dpfp_mpi(size, num_cores);
+                    break;
+            }
+        }
+    }
+    else if(benchmark==6)
+    {
+        if( (num_cores==1 || mp_or_mpi==1) && rank==0)
+        {
+            switch(data_type)
+            {
+                case(4):
+                    runtime=cw_spfp(size, num_cores);
+                    break;
+                case(5):
+                    runtime=cw_dpfp(size, num_cores);
+                    break;
+            }
+        }
+        else if(mp_or_mpi==2)
+        {
+            switch(data_type)
+            {
+                case(4):
+                    runtime=cw_spfp_mpi(size, num_cores);
+                    break;
+                case(5):
+                    runtime=cw_dpfp_mpi(size, num_cores);
+                    break;
+            }
+        }
+    }
+    else if(benchmark==7)
+    {
+        if( (num_cores==1 || mp_or_mpi==1) && rank==0)
+        {
+            switch(data_type)
+            {
+                case(1):
+                    runtime=sobel_int8(size, num_cores);
+                    break;
+                case(2):
+                    runtime=sobel_int16(size, num_cores);
+                    break;
+                case(3):
+                    runtime=sobel_int32(size, num_cores);
+                    break;
+                case(4):
+                    runtime=sobel_spfp(size, num_cores);
+                    break;
+                case(5):
+                    runtime=sobel_dpfp(size, num_cores);
+                    break;
+            }
+        }
+        else if(mp_or_mpi==2)
+        {
+            switch(data_type)
+            {
+                case(1):
+                    runtime=sobel_int8_mpi(size, num_cores);
+                    break;
+                case(2):
+                    runtime=sobel_int16_mpi(size, num_cores);
+                    break;
+                case(3):
+                    runtime=sobel_int32_mpi(size, num_cores);
+                    break;
+                case(4):
+                    runtime=sobel_spfp_mpi(size, num_cores);
+                    break;
+                case(5):
+                    runtime=sobel_dpfp_mpi(size, num_cores);
+                    break;
+            }
+        }
+    }
+    
     
     
     if(rank==0)
